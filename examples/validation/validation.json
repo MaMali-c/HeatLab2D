@@ -1,0 +1,594 @@
+{
+  "schema_version": 1,
+  "assumptions": [
+    "Homogeneous isotropic material with constant properties",
+    "Uniform temperature through thickness; two thickness faces are adiabatic",
+    "Constant boundary data and volumetric sources; no radiation or contact resistance",
+    "Error statistics are evaluated at corresponding cell centres"
+  ],
+  "references": {
+    "authors": [
+      "T. L. Bergman",
+      "A. S. Lavine",
+      "F. P. Incropera",
+      "D. P. DeWitt"
+    ],
+    "title": "Fundamentals of Heat and Mass Transfer",
+    "edition": 8,
+    "publisher": "https://catalogimages.wiley.com/images/db/pdf/9781119320432.toc.pdf",
+    "sections": [
+      "1.3.1",
+      "2.1",
+      "2.3",
+      "2.4",
+      "3.5.1",
+      "4.2",
+      "4.4.3",
+      "4.5.2",
+      "5.5"
+    ]
+  },
+  "models": {
+    "A_steady_generated_slab": {
+      "mode": "steady",
+      "spatial_method": "cell_centred_finite_volume",
+      "grid": {
+        "width_m": 0.2,
+        "height_m": 0.1,
+        "thickness_m": 0.02,
+        "nx": 80,
+        "ny": 40
+      },
+      "material": {
+        "conductivity_w_mk": 12.0,
+        "density_kg_m3": 2400.0,
+        "specific_heat_j_kgk": 850.0
+      },
+      "boundaries": {
+        "left": {
+          "kind": "temperature",
+          "temperature_k": 300.0
+        },
+        "right": {
+          "kind": "temperature",
+          "temperature_k": 300.0
+        },
+        "bottom": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        },
+        "top": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        }
+      },
+      "generation_w_m3": 24000.0,
+      "energy_reference_k": 0.0,
+      "linear_solver": "SciPy SuperLU sparse direct factorization",
+      "refinement_nx": [
+        10,
+        20,
+        40,
+        80
+      ],
+      "analytic_reference": "300 + qdot*x*(Lx-x)/(2*k)"
+    },
+    "B_transient_insulated_mode": {
+      "mode": "transient",
+      "spatial_method": "cell_centred_finite_volume",
+      "grid": {
+        "width_m": 0.2,
+        "height_m": 0.1,
+        "thickness_m": 0.02,
+        "nx": 20,
+        "ny": 10
+      },
+      "material": {
+        "conductivity_w_mk": 12.0,
+        "density_kg_m3": 2400.0,
+        "specific_heat_j_kgk": 850.0
+      },
+      "boundaries": {
+        "left": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        },
+        "right": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        },
+        "bottom": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        },
+        "top": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        }
+      },
+      "generation_w_m3": 0.0,
+      "energy_reference_k": 0.0,
+      "time": {
+        "method": "backward_euler",
+        "duration_s": 140.0,
+        "steps": 640,
+        "step_s": 0.21875,
+        "initial_temperature_k": [
+          [
+            329.5393088119621,
+            328.81195299366624,
+            327.37515127127654,
+            325.2642824716698,
+            322.5313231902641,
+            319.2435679547397,
+            315.4819722104291,
+            311.33915892857783,
+            306.91713792139404,
+            302.3247940219209,
+            297.6752059780791,
+            293.08286207860596,
+            288.66084107142217,
+            284.5180277895709,
+            280.75643204526034,
+            277.4686768097359,
+            274.7357175283302,
+            272.62484872872346,
+            271.18804700633376,
+            270.4606911880379
+          ],
+          [
+            326.6477954529807,
+            325.99163828996564,
+            324.69548073094967,
+            322.79123847673617,
+            320.3258002914415,
+            317.3598734455079,
+            313.96648890122907,
+            310.2292030480828,
+            306.2400402671142,
+            302.0972269852629,
+            297.90277301473714,
+            293.7599597328858,
+            289.7707969519172,
+            286.03351109877093,
+            282.64012655449216,
+            279.6741997085585,
+            277.20876152326383,
+            275.30451926905033,
+            274.00836171003436,
+            273.3522045470193
+          ],
+          [
+            321.1478102089532,
+            320.6270809360506,
+            319.59844447314566,
+            318.08722926380375,
+            316.13064644191456,
+            313.77687357007926,
+            311.08386834812654,
+            308.11794150219293,
+            304.95212399457216,
+            301.6643687590477,
+            298.3356312409523,
+            295.04787600542784,
+            291.88205849780707,
+            288.91613165187346,
+            286.22312642992074,
+            283.86935355808544,
+            281.91277073619625,
+            280.40155552685434,
+            279.3729190639494,
+            278.8521897910468
+          ],
+          [
+            313.5777299562156,
+            313.24340118279133,
+            312.5829759199181,
+            311.6127160293937,
+            310.3565125298307,
+            308.8452973204888,
+            307.1162815352577,
+            305.21203928104416,
+            303.17945932196466,
+            301.0685905223579,
+            298.9314094776421,
+            296.82054067803534,
+            294.78796071895584,
+            292.8837184647423,
+            291.1547026795112,
+            289.6434874701693,
+            288.3872839706063,
+            287.4170240800819,
+            286.75659881720867,
+            286.4222700437844
+          ],
+          [
+            304.6785668937563,
+            304.5633650495587,
+            304.3357980129007,
+            304.0014692394764,
+            303.5686110132612,
+            303.0478817403586,
+            302.45210350366887,
+            301.79594634065376,
+            301.09556701832764,
+            300.3682112000318,
+            299.6317887999682,
+            298.90443298167236,
+            298.20405365934624,
+            297.54789649633113,
+            296.9521182596414,
+            296.4313889867388,
+            295.9985307605236,
+            295.6642019870993,
+            295.4366349504413,
+            295.3214331062437
+          ],
+          [
+            295.3214331062438,
+            295.4366349504413,
+            295.6642019870994,
+            295.9985307605236,
+            296.4313889867388,
+            296.9521182596414,
+            297.5478964963312,
+            298.20405365934624,
+            298.90443298167236,
+            299.6317887999682,
+            300.3682112000318,
+            301.09556701832764,
+            301.79594634065376,
+            302.4521035036688,
+            303.0478817403586,
+            303.5686110132612,
+            304.0014692394764,
+            304.3357980129006,
+            304.5633650495587,
+            304.6785668937562
+          ],
+          [
+            286.4222700437844,
+            286.75659881720867,
+            287.4170240800819,
+            288.3872839706063,
+            289.6434874701693,
+            291.1547026795112,
+            292.8837184647423,
+            294.78796071895584,
+            296.82054067803534,
+            298.9314094776421,
+            301.0685905223579,
+            303.17945932196466,
+            305.21203928104416,
+            307.1162815352577,
+            308.8452973204888,
+            310.3565125298307,
+            311.6127160293937,
+            312.5829759199181,
+            313.24340118279133,
+            313.5777299562156
+          ],
+          [
+            278.8521897910468,
+            279.3729190639494,
+            280.40155552685434,
+            281.91277073619625,
+            283.86935355808544,
+            286.22312642992074,
+            288.91613165187346,
+            291.88205849780707,
+            295.04787600542784,
+            298.3356312409523,
+            301.6643687590477,
+            304.95212399457216,
+            308.11794150219293,
+            311.08386834812654,
+            313.77687357007926,
+            316.13064644191456,
+            318.08722926380375,
+            319.59844447314566,
+            320.6270809360506,
+            321.1478102089532
+          ],
+          [
+            273.3522045470193,
+            274.00836171003436,
+            275.30451926905033,
+            277.20876152326383,
+            279.6741997085585,
+            282.6401265544921,
+            286.03351109877093,
+            289.7707969519172,
+            293.7599597328858,
+            297.9027730147371,
+            302.09722698526286,
+            306.2400402671142,
+            310.2292030480828,
+            313.96648890122907,
+            317.3598734455079,
+            320.3258002914415,
+            322.79123847673617,
+            324.69548073094967,
+            325.99163828996564,
+            326.6477954529807
+          ],
+          [
+            270.4606911880379,
+            271.18804700633376,
+            272.62484872872346,
+            274.7357175283302,
+            277.4686768097359,
+            280.7564320452603,
+            284.5180277895709,
+            288.66084107142217,
+            293.082862078606,
+            297.6752059780791,
+            302.3247940219209,
+            306.91713792139404,
+            311.33915892857783,
+            315.4819722104291,
+            319.24356795473966,
+            322.5313231902641,
+            325.2642824716698,
+            327.37515127127654,
+            328.81195299366624,
+            329.5393088119621
+          ]
+        ],
+        "max_abs_balance_w": 6.755738825501925e-14
+      },
+      "linear_solver": "SciPy SuperLU sparse direct factorization",
+      "refinement_steps": [
+        10,
+        20,
+        40,
+        80,
+        160,
+        320,
+        640
+      ],
+      "initial_temperature_formula": "300 + 30*cos(pi*x/Lx)*cos(pi*y/Ly)",
+      "continuum_decay_s_inv": 0.007257062059624527,
+      "fv_decay_s_inv": 0.007206487424671613
+    },
+    "C_transient_mixed_energy": {
+      "mode": "transient",
+      "spatial_method": "cell_centred_finite_volume",
+      "grid": {
+        "width_m": 0.2,
+        "height_m": 0.1,
+        "thickness_m": 0.02,
+        "nx": 20,
+        "ny": 10
+      },
+      "material": {
+        "conductivity_w_mk": 12.0,
+        "density_kg_m3": 2400.0,
+        "specific_heat_j_kgk": 850.0
+      },
+      "boundaries": {
+        "left": {
+          "kind": "temperature",
+          "temperature_k": 350.0
+        },
+        "right": {
+          "kind": "convection",
+          "ambient_temperature_k": 290.0,
+          "h_w_m2k": 25.0
+        },
+        "bottom": {
+          "kind": "insulated",
+          "inward_flux_w_m2": 0.0
+        },
+        "top": {
+          "kind": "flux",
+          "inward_flux_w_m2": 60.0
+        }
+      },
+      "generation_w_m3": 6000.0,
+      "energy_reference_k": 0.0,
+      "time": {
+        "method": "backward_euler",
+        "duration_s": 200.0,
+        "steps": 40,
+        "step_s": 5.0,
+        "initial_temperature_k": 300.0,
+        "max_abs_balance_w": 4.263256414560601e-14
+      },
+      "linear_solver": "SciPy SuperLU sparse direct factorization"
+    }
+  },
+  "acceptance": {
+    "grid_pair_max_delta_k": 0.01,
+    "time_pair_max_delta_k": 0.01,
+    "absolute_power_residual_w": 1e-08,
+    "absolute_energy_residual_j": 1e-08,
+    "scope": "Benchmark-specific demonstration thresholds"
+  },
+  "grid_convergence": [
+    {
+      "nx": 10,
+      "ny": 5,
+      "dx_m": 0.02,
+      "dy_m": 0.02,
+      "mae_k": 0.1,
+      "rmse_k": 0.1,
+      "max_temperature_error_k": 0.10000000000002274,
+      "order": null,
+      "pair_max_delta_k": null,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": null,
+      "signed_power_residual_w": -3.552713678800501e-15
+    },
+    {
+      "nx": 20,
+      "ny": 10,
+      "dx_m": 0.01,
+      "dy_m": 0.01,
+      "mae_k": 0.025000000000004262,
+      "rmse_k": 0.025000000000004262,
+      "max_temperature_error_k": 0.025000000000034106,
+      "order": 1.9999999999983598,
+      "pair_max_delta_k": 0.10000000000002274,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "signed_power_residual_w": -3.552713678800501e-15
+    },
+    {
+      "nx": 40,
+      "ny": 20,
+      "dx_m": 0.005,
+      "dy_m": 0.005,
+      "mae_k": 0.006250000000044054,
+      "rmse_k": 0.006250000000044054,
+      "max_temperature_error_k": 0.006250000000136424,
+      "order": 1.9999999999704772,
+      "pair_max_delta_k": 0.025000000000034106,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "signed_power_residual_w": -4.973799150320701e-14
+    },
+    {
+      "nx": 80,
+      "ny": 40,
+      "dx_m": 0.0025,
+      "dy_m": 0.0025,
+      "mae_k": 0.0015625000001937828,
+      "rmse_k": 0.0015625000001937826,
+      "max_temperature_error_k": 0.0015625000003751666,
+      "order": 1.9999999996850903,
+      "pair_max_delta_k": 0.006250000000022737,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": true,
+      "signed_power_residual_w": -2.3092638912203256e-13
+    }
+  ],
+  "time_convergence": [
+    {
+      "steps": 10,
+      "dt_s": 14.0,
+      "mae_k": 0.21775856057809223,
+      "rmse_k": 0.2672704696921686,
+      "max_temperature_error_k": 0.5263323293703479,
+      "order": null,
+      "pair_max_delta_k": null,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": null,
+      "continuum_mae_k": 0.24919811901288202,
+      "continuum_rmse_k": 0.3058584614913124,
+      "continuum_max_temperature_error_k": 0.6023231697828919
+    },
+    {
+      "steps": 20,
+      "dt_s": 7.0,
+      "mae_k": 0.11108257685389333,
+      "rmse_k": 0.13633949641997894,
+      "max_temperature_error_k": 0.2684916325345057,
+      "order": 0.9710968857399087,
+      "pair_max_delta_k": 0.25784069683589905,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "continuum_mae_k": 0.1425221352886831,
+      "continuum_rmse_k": 0.17492748821912274,
+      "continuum_max_temperature_error_k": 0.3444824729470497
+    },
+    {
+      "steps": 40,
+      "dt_s": 3.5,
+      "mae_k": 0.05611237283534053,
+      "rmse_k": 0.06887068046110237,
+      "max_temperature_error_k": 0.13562615321535532,
+      "order": 0.9852417230318168,
+      "pair_max_delta_k": 0.13286547931915038,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "continuum_mae_k": 0.08755193127013029,
+      "continuum_rmse_k": 0.10745867226024618,
+      "continuum_max_temperature_error_k": 0.21161699362789932
+    },
+    {
+      "steps": 80,
+      "dt_s": 1.75,
+      "mae_k": 0.028201613005668095,
+      "rmse_k": 0.03461383255882924,
+      "max_temperature_error_k": 0.06816457927470765,
+      "order": 0.9925412409731063,
+      "pair_max_delta_k": 0.06746157394064767,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "continuum_mae_k": 0.059641171440457864,
+      "continuum_rmse_k": 0.07320182435797304,
+      "continuum_max_temperature_error_k": 0.14415541968725165
+    },
+    {
+      "steps": 160,
+      "dt_s": 0.875,
+      "mae_k": 0.014137503206115126,
+      "rmse_k": 0.017351956736589663,
+      "max_temperature_error_k": 0.03417098723559775,
+      "order": 0.9962503292728858,
+      "pair_max_delta_k": 0.0339935920391099,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "continuum_mae_k": 0.0455770616409049,
+      "continuum_rmse_k": 0.05593994853573347,
+      "continuum_max_temperature_error_k": 0.11016182764814175
+    },
+    {
+      "steps": 320,
+      "dt_s": 0.4375,
+      "mae_k": 0.007077968807925003,
+      "rmse_k": 0.008687291295178425,
+      "max_temperature_error_k": 0.01710777202049485,
+      "order": 0.9981200423512369,
+      "pair_max_delta_k": 0.0170632152151029,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": false,
+      "continuum_mae_k": 0.038517527242714775,
+      "continuum_rmse_k": 0.04727528309432223,
+      "continuum_max_temperature_error_k": 0.09309861243303885
+    },
+    {
+      "steps": 640,
+      "dt_s": 0.21875,
+      "mae_k": 0.0035412941169056466,
+      "rmse_k": 0.004346480521503202,
+      "max_temperature_error_k": 0.008559468691316852,
+      "order": 0.9990587343370272,
+      "pair_max_delta_k": 0.008548303329234841,
+      "pair_tolerance_k": 0.01,
+      "pair_pass": true,
+      "continuum_mae_k": 0.03498085255169542,
+      "continuum_rmse_k": 0.042934472320647,
+      "continuum_max_temperature_error_k": 0.08455030910386085
+    }
+  ],
+  "energy_audit": {
+    "steady": {
+      "signed_boundary_inward_w": [
+        -4.800000000000109,
+        -4.800000000000124,
+        0.0,
+        0.0
+      ],
+      "side_order": [
+        "left",
+        "right",
+        "bottom",
+        "top"
+      ],
+      "generated_w": 9.600000000000001,
+      "signed_power_residual_w": -2.3092638912203256e-13,
+      "pass": true
+    },
+    "transient": {
+      "boundary_energy_j": 7710.478322279843,
+      "generated_energy_j": 480.00000000000006,
+      "stored_energy_change_j": 8190.478322279842,
+      "final_signed_residual_j": 9.094947017729282e-13,
+      "max_abs_power_residual_w": 1.6342482922482304e-13,
+      "max_abs_energy_residual_j": 9.094947017729282e-13,
+      "pass": true
+    }
+  }
+}

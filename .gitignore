@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+.pytest_cache/
+
+# Local environment and generated reports
+.env
+.env.*
+.streamlit/secrets.toml
+validation-report/
